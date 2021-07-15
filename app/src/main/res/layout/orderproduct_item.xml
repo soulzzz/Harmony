@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/ordersection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background">
+    <ImageView
+        android:id="@+id/product_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_video_img" />
+
+    <RelativeLayout
+        android:id="@+id/relativelayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@id/product_icon"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:layout_toLeftOf="@+id/rmbicon"
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="store_name"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/select_play_text_color"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/rmbicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥ "
+            android:layout_toLeftOf="@+id/product_price"
+            />
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="8dp"
+            android:text="34.00"
+            />
+        <TextView
+            android:id="@+id/product_num"
+            android:text="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="8dp"
+            android:layout_below="@+id/product_price"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x"
+            android:layout_below="@+id/product_price"
+            android:layout_toLeftOf="@id/product_num"/>
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/store_distance"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentRight="true"-->
+        <!--            android:text="meter-m"-->
+        <!--            android:textColor="@color/select_play_text_color"-->
+        <!--            android:textSize="16sp" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/store_intro"-->
+        <!--                android:layout_width="fill_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_below="@+id/product_name"-->
+        <!--                android:layout_alignParentEnd="true"-->
+        <!--                android:layout_marginTop="10dp"-->
+        <!--                android:layout_marginEnd="0dp"-->
+        <!--                android:ellipsize="end"-->
+        <!--                android:lines="2"-->
+        <!--                android:marqueeRepeatLimit="marquee_forever"-->
+        <!--                android:maxLines="2"-->
+        <!--                android:paddingTop="5dip"-->
+        <!--                android:singleLine="false"-->
+        <!--                android:text="store_intro"-->
+        <!--                android:textColor="@color/select_play_text_color"-->
+        <!--                android:textSize="8sp" />-->
+    </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/halfgray">
+    <RelativeLayout
+        android:id="@+id/topdiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/topdiv"
+        android:id="@+id/storesection"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@drawable/item_background">
+        <TextView
+            android:id="@+id/store_name"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Store_name"
+            android:textColor="@color/black"
+            android:drawableRight="@drawable/ic_goto"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/ordersection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background"
+        android:layout_below="@+id/storesection">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderproductrecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+<!--        <ImageView-->
+<!--            android:id="@+id/product_icon"-->
+<!--            android:layout_width="70dp"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:src="@drawable/ic_video_img" />-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/relativelayout1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_toRightOf="@id/product_icon"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:paddingTop="5dp"-->
+<!--            android:paddingBottom="5dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/product_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="store_name"-->
+<!--                android:textColor="@color/select_play_text_color"-->
+<!--                android:textSize="16sp" />-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="¥ "-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:id="@+id/product_price"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginRight="8dp"-->
+<!--                android:text="34.00"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:id="@+id/product_num"-->
+<!--                android:text="1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_marginRight="8dp"-->
+<!--                android:layout_below="@+id/product_price"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="x"-->
+<!--                android:layout_below="@+id/product_price"-->
+<!--                android:layout_toLeftOf="@id/product_num"/>-->
+
+<!--            &lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:id="@+id/store_distance"&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:layout_alignParentRight="true"&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:text="meter-m"&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:textColor="@color/select_play_text_color"&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:textSize="16sp" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/store_intro"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="fill_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_below="@+id/product_name"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_alignParentEnd="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_marginTop="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_marginEnd="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:ellipsize="end"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:lines="2"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:marqueeRepeatLimit="marquee_forever"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:maxLines="2"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:paddingTop="5dip"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:singleLine="false"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="store_intro"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/select_play_text_color"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="8sp" />&ndash;&gt;-->
+<!--        </RelativeLayout>-->
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@drawable/item_background"
+        android:id="@+id/paynum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ordersection"
+        android:layout_alignParentEnd="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="实付款 "
+            android:layout_toLeftOf="@+id/rmbicon"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/rmbicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_toLeftOf="@+id/orderprice"
+            android:text="¥"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:id="@+id/orderprice"
+            android:text="10.0"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@drawable/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/paynum">
+        <TextView
+            android:id="@+id/state"
+            android:layout_alignParentEnd="true"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="状态"
+            android:gravity="center"
+            android:textColor="@color/orange"
+            android:background="@drawable/icon_line"/>
+    </RelativeLayout>
+</RelativeLayout>
+

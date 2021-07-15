@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".Fragment.ProfileFragment" >
+    <RelativeLayout
+        android:id="@+id/top_div"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/halfgray">
+        <ImageView
+            android:id="@+id/leavestore"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_left_arrow"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/iconsection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/top_div"
+        android:background="@drawable/round_bg">
+
+        <ImageView
+            android:id="@+id/store_img"
+            android:layout_width="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_height="wrap_content"
+            android:src="@drawable/profile"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:id="@+id/store_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Store Name"
+            android:layout_marginTop="10dp"
+            android:textSize="22sp"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/store_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/store_name"
+            android:layout_marginStart="10dp"
+            android:layout_toStartOf="@+id/store_img"
+            android:lines="2"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="Store DES"
+            android:textColor="#828181"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/firstlinearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iconsection">
+        <RelativeLayout
+            android:id="@+id/totalRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom"
+            >
+            <RelativeLayout
+                android:id="@+id/first"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:background="@color/halfgray"
+                android:layout_weight="5">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categoryrecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_toRightOf="@+id/first"
+                android:id="@+id/second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/halfwhite">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productrecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+       <RelativeLayout
+
+           android:id="@+id/bottom"
+           android:layout_width="match_parent"
+           android:layout_height="60dp"
+           android:layout_alignParentBottom="true"
+           android:background="@color/bg_white">
+           <ImageView
+               android:id="@+id/shopcar"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_centerVertical="true"
+               android:layout_marginLeft="20dp"
+               android:src="@drawable/ic_store_on"
+               />
+           <TextView
+               android:id="@+id/rmb"
+               android:layout_width="wrap_content"
+               android:layout_marginTop="20dp"
+               android:layout_height="wrap_content"
+               android:text="¥"
+               android:layout_toRightOf="@+id/shopcar"
+               android:textColor="@color/black"
+               />
+           <TextView
+               android:id="@+id/totalprice"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="0.0"
+               android:textSize="20dp"
+               android:layout_toRightOf="@+id/rmb"
+               android:textColor="@color/black"
+               android:layout_centerVertical="true"
+
+               />
+           <TextView
+               android:id="@+id/gotopay"
+               android:layout_alignParentRight="true"
+               android:layout_width="60dp"
+               android:layout_height="40dp"
+               android:gravity="center"
+               android:layout_centerVertical="true"
+               android:textColor="@color/white"
+               android:background="@drawable/round_border"
+               android:text="去结算"/>
+       </RelativeLayout>
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>
