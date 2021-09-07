@@ -11,13 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xmut.harmony.Activity.CheckOrderActivity;
-import com.xmut.harmony.Activity.CheckOrderDetailActivity;
 import com.xmut.harmony.Fragment.MainFragment;
 import com.xmut.harmony.Activity.StoreActivity;
 import com.xmut.harmony.R;
 import com.xmut.harmony.entity.Order;
-import com.xmut.harmony.entity.OrderProduct;
+import com.xmut.harmony.entity.Product;
 import com.xmut.harmony.entity.Store;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class CheckOrderDetailAdapter extends RecyclerView.Adapter<CheckOrderDeta
     Context context;
 
     List<Order> orderList;
-    List<OrderProduct> orderProducts;
+    List<Product> orderProducts;
     List<Store> store;
 
     public CheckOrderDetailAdapter(Context context) {
@@ -63,7 +61,6 @@ public class CheckOrderDetailAdapter extends RecyclerView.Adapter<CheckOrderDeta
             {
                 orderProducts = orderList.get(position).getOrderProducts();
                 holder.storename.setText(temp.getStore_name());
-                System.out.println("找到商店 正在绘制");
                 break;
             }
         }

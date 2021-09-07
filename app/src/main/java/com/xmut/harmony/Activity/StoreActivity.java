@@ -23,6 +23,7 @@ import com.xmut.harmony.R;
 import com.xmut.harmony.entity.Product;
 import com.xmut.harmony.entity.Store;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,15 +70,28 @@ public class StoreActivity extends AppCompatActivity {
             }
         }
         //对List中特定属性进行归类排序
-        List<Product> list  =store.getStore_products();
-        Map<String,List<Product> > stringListMap = list.stream().collect(Collectors.groupingBy(Product::getProduct_category));
-        products.clear();
-        //将map集合转为set集合遍历
-        Set<Map.Entry<String, List<Product>>> entries = stringListMap.entrySet();
-        for(Map.Entry m : entries){
-            System.out.println(m);
-            products.addAll((List<Product>)m.getValue() ) ;
+        if(store.getStore_products() !=null && store.getStore_products().get(0).getProduct_id()!=null){
+            List<Product> list  =store.getStore_products();
+
+            for(Product product:list){ //过滤未上架商品
+                if(product.getIsshow()!=1){
+                    list.remove(product);
+                }
+            }
+            Map<String,List<Product> > stringListMap = list.stream().collect(Collectors.groupingBy(Product::getProduct_category));
+            products.clear();
+            //将map集合转为set集合遍历
+            Set<Map.Entry<String, List<Product>>> entries = stringListMap.entrySet();
+            for(Map.Entry m : entries){
+                System.out.println(m);
+                products.addAll((List<Product>)m.getValue() ) ;
+            }
+        }else{
+            products.clear();
         }
+
+
+
 
 //        Map<String,List<Product> > map = new HashMap<>();
 //        for(Product p:temp){
@@ -121,8 +135,14 @@ public class StoreActivity extends AppCompatActivity {
                     Toast.makeText(context, "未选商品", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Intent it = new Intent(context,OrderActivity.class);
+                    List<Product> temp = new ArrayList<>();
+                    for (Map.Entry<Product, Integer> entry : myorder.entrySet()) {
+                        entry.getKey().setProduct_num(entry.getValue()) ;
+                        temp.add(entry.getKey() );
+                    }
 
+                    Intent it = new Intent(context,OrderActivity.class);
+                    it.putExtra("list",(Serializable)temp);
                     startActivity(it);
                 }
 

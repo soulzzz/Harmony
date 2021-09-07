@@ -75,7 +75,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreHolder>
                         Toast.makeText(context, "您还不是会员，无法浏览商店", Toast.LENGTH_SHORT).show();
                     }
 
-
                 }
             });
         }

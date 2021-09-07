@@ -18,19 +18,46 @@ public class Order implements Serializable ,Comparable<Order>{
 
     private String user_tel;
 
-    private String order_state;
+    private int order_state;
 
     private double order_price;
 
     private String order_date;
 
-    private List<OrderProduct> orderProducts;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "order_id='" + order_id + '\'' +
+                ", user_id=" + user_id +
+                ", store_id=" + store_id +
+                ", user_address='" + user_address + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", user_tel='" + user_tel + '\'' +
+                ", order_state=" + order_state +
+                ", order_price=" + order_price +
+                ", order_date='" + order_date + '\'' +
+                ", order_reason='" + order_reason + '\'' +
+                ", orderProducts=" + orderProducts +
+                '}';
+    }
 
-    public List<OrderProduct> getOrderProducts() {
+    private String order_reason;
+
+    private List<Product> orderProducts;
+
+    public String getOrder_reason() {
+        return order_reason;
+    }
+
+    public void setOrder_reason(String order_reason) {
+        this.order_reason = order_reason;
+    }
+
+    public List<Product> getOrderProducts() {
         return orderProducts;
     }
 
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
+    public void setOrderProducts(List<Product> orderProducts) {
         this.orderProducts = orderProducts;
     }
 
@@ -84,11 +111,11 @@ public class Order implements Serializable ,Comparable<Order>{
         this.user_tel = user_tel;
     }
 
-    public String getOrder_state() {
+    public int getOrder_state() {
         return order_state;
     }
 
-    public void setOrder_state(String order_state) {
+    public void setOrder_state(int order_state) {
         this.order_state = order_state;
     }
 
@@ -106,22 +133,6 @@ public class Order implements Serializable ,Comparable<Order>{
 
     public void setOrder_date(String order_date) {
         this.order_date = order_date;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "order_id='" + order_id + '\'' +
-                ", user_id=" + user_id +
-                ", store_id=" + store_id +
-                ", user_address='" + user_address + '\'' +
-                ", user_name='" + user_name + '\'' +
-                ", user_tel='" + user_tel + '\'' +
-                ", order_state='" + order_state + '\'' +
-                ", order_price=" + order_price +
-                ", order_date=" + order_date +
-                ", orderProducts=" + orderProducts +
-                '}';
     }
 
     @Override

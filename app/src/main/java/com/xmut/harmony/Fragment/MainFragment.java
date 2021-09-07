@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,9 +51,11 @@ import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
+import com.xmut.harmony.Adapter.GoodsAdapter;
 import com.xmut.harmony.Adapter.StoreAdapter;
 import com.xmut.harmony.R;
 import com.xmut.harmony.Video.utils.StringUtil;
+import com.xmut.harmony.entity.Product;
 import com.xmut.harmony.entity.Result;
 import com.xmut.harmony.entity.Store;
 import com.xmut.harmony.map.overlay.WalkRouteOverlay;
@@ -71,15 +74,17 @@ public class MainFragment extends Fragment  implements  PoiSearch.OnPoiSearchLis
     CameraUpdate mCameraUpdate;
     MyLocationStyle myLocationStyle;
     public static List<Store> stores;
+    public static List<Product> products;
     private EditText editText; //搜索栏
     private String keyWord;
     private Button searchbt; //搜索bt
-    private RecyclerView recyclerView; //商店
+    private RecyclerView recyclerView,goodsrecyclerView; //商店
+    private GoodsAdapter goodsAdapter;
     private StoreAdapter storeAdapter;
     private LinearLayout linearLayout;
     boolean location_bt=false;
-    private RelativeLayout map_visible_bt,search_visible_bt,store_visible_bt,location_visible_bt;
-    private ImageView map_img,search_img,store_img,location_img;
+    private RelativeLayout map_visible_bt,search_visible_bt,store_visible_bt,location_visible_bt,goods_visible_bt;
+    private ImageView map_img,search_img,store_img,location_img,goods_img;
     private LatLonPoint TargetMarker;
     AMap aMap;
     View view;
@@ -291,17 +296,18 @@ public class MainFragment extends Fragment  implements  PoiSearch.OnPoiSearchLis
         editText =view.findViewById(R.id.search_text);
 //        searchbt  =view.findViewById(R.id.search_bt);
         recyclerView = view.findViewById(R.id.store_visible);
-
+        goodsrecyclerView =view.findViewById(R.id.goods_visible);
         map_visible_bt = view.findViewById(R.id.map_visible_bt);
         search_visible_bt = view.findViewById(R.id.search_visible_bt);
         store_visible_bt = view.findViewById(R.id.store_visible_bt);
+        goods_visible_bt = view.findViewById(R.id.goods_visible_bt);
         location_visible_bt = view.findViewById(R.id.location_visible_bt);
 
         map_img = view.findViewById(R.id.map_img);
         search_img = view.findViewById(R.id.search_img);
         store_img = view.findViewById(R.id.store_img);
         location_img = view.findViewById(R.id.location_img);
-
+        goods_img = view.findViewById(R.id.goods_img);
         map_visible_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -345,11 +351,32 @@ public class MainFragment extends Fragment  implements  PoiSearch.OnPoiSearchLis
             public void onClick(View v) {
                 if(recyclerView.getVisibility()==View.GONE)
                 {
+
                     recyclerView.setVisibility(View.VISIBLE);
                     store_img.setImageResource(R.drawable.ic_store_on);
+
+                    goodsrecyclerView.setVisibility(View.GONE);
+                    goods_img.setImageResource(R.drawable.goods_img_off);
                 }else {
                     recyclerView.setVisibility(View.GONE);
                     store_img.setImageResource(R.drawable.ic_store_off);
+                }
+            }
+        });
+        goods_visible_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(goodsrecyclerView.getVisibility()==View.GONE)
+                {
+
+                    goodsrecyclerView.setVisibility(View.VISIBLE);
+                    goods_img.setImageResource(R.drawable.goods_img);
+
+                    store_img.setImageResource(R.drawable.ic_store_off);
+                    recyclerView.setVisibility(View.GONE);
+                }else {
+                    goodsrecyclerView.setVisibility(View.GONE);
+                    goods_img.setImageResource(R.drawable.goods_img_off);
                 }
             }
         });
@@ -394,13 +421,17 @@ public class MainFragment extends Fragment  implements  PoiSearch.OnPoiSearchLis
 
             }
         });
-
         getAllStore();
+        getAllProducts();
         storeAdapter = new StoreAdapter(context);
+        goodsAdapter = new GoodsAdapter(context);
         storeAdapter.setStoreListList(stores);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(storeAdapter);
+        goodsAdapter.setProductList(products);
+        goodsrecyclerView.setAdapter(goodsAdapter);
+        goodsrecyclerView.setLayoutManager(new GridLayoutManager(context,2));
 
+        recyclerView.setAdapter(storeAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
     private void getAllStore() {
         stores = new ArrayList<>();
@@ -409,9 +440,20 @@ public class MainFragment extends Fragment  implements  PoiSearch.OnPoiSearchLis
             Toast.makeText(context, "获取商店失败", Toast.LENGTH_SHORT).show();
         } else {
                 stores = DatabaseUtil.getObjectList(result,Store.class);
-            System.out.println(stores);
+            System.out.println("TEst"+stores);
             Toast.makeText(context, "获取商店成功", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void getAllProducts(){
+        products = new ArrayList<>();
+        Result result = DatabaseUtil.selectList(HttpAddress.get(HttpAddress.product(), "lists",1));
+        if (result.getCode() != 200) {
+            Toast.makeText(context, "获取产品失败", Toast.LENGTH_SHORT).show();
+        } else {
+            products = DatabaseUtil.getObjectList(result,Product.class);
+            Toast.makeText(context, "获取产品成功", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     //周边搜索
