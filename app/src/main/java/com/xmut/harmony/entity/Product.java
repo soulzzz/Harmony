@@ -5,65 +5,97 @@ package com.xmut.harmony.entity;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 
-public class Product implements Serializable,Cloneable,Comparable<Product>
+public class Product implements Cloneable,Comparable<Product>,Serializable
 {
-    int product_id;
+    private int store_id; //Order
 
-    String product_name;
+    private String product_id;
+
+    private String product_name;
+
+    private String product_img;
+
+    private double product_price;
+
+    private boolean isfirst = false;
+
+    private int belongto = -1;
+
+    private String product_category;
+
+    private String product_des;
+
+    private int product_stock;
+
+    private boolean isShow;
+
+    private List<ProductComment> productCommentList;
 
 
+    private String order_id;
 
-    String product_img;
-
-    double product_price;
-
-    boolean isfirst = false;
-
-    int belongto = -1;
-
-    public int getBelongto() {
-        return belongto;
+    public int getStore_id() {
+        return store_id;
     }
 
-    public void setBelongto(int belongto) {
-        this.belongto = belongto;
+    public void setStore_id(int store_id) {
+        this.store_id = store_id;
     }
 
-    public boolean isIsfirst() {
-    return isfirst;
-}
-
-    public void setIsfirst(boolean isfirst) {
-        this.isfirst = isfirst;
-    }
-    @NonNull
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        Product  p=null;
-        try{
-            p = (Product)super.clone();
-        }catch (CloneNotSupportedException e)
-        {
-            e.printStackTrace();
-        }
-        return p;
+    public boolean isShow() {
+        return isShow;
     }
 
-    String product_category;
+    public void setShow(boolean show) {
+        isShow = show;
+    }
 
-    String product_des;
+    public List<ProductComment> getProductCommentList() {
+        return productCommentList;
+    }
 
-    int product_stock;
+    public void setProductCommentList(List<ProductComment> productCommentList) {
+        this.productCommentList = productCommentList;
+    }
+
+    public String getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
+    }
+
+    public int getProduct_num() {
+        return product_num;
+    }
+
+    public void setProduct_num(int product_num) {
+        this.product_num = product_num;
+    }
+
+    private int product_num;
 
 
-    public int getProduct_id() {
+    private int isshow;
+
+    public int getIsshow() {
+        return isshow;
+    }
+
+    public void setIsshow(int isshow) {
+        this.isshow = isshow;
+    }
+
+    public String getProduct_id() {
         return product_id;
     }
 
 
-    public void setProduct_id(int product_id) {
+    public void setProduct_id(String product_id) {
         this.product_id = product_id;
     }
 
@@ -126,5 +158,32 @@ public class Product implements Serializable,Cloneable,Comparable<Product>
     @Override
     public int compareTo(Product o) {
         return this.getProduct_category().compareTo(o.getProduct_category());
+    }
+    public int getBelongto() {
+    return belongto;
+}
+
+    public void setBelongto(int belongto) {
+        this.belongto = belongto;
+    }
+
+    public boolean isIsfirst() {
+        return isfirst;
+    }
+
+    public void setIsfirst(boolean isfirst) {
+        this.isfirst = isfirst;
+    }
+    @NonNull
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Product  p=null;
+        try{
+            p = (Product)super.clone();
+        }catch (CloneNotSupportedException e)
+        {
+            e.printStackTrace();
+        }
+        return p;
     }
 }

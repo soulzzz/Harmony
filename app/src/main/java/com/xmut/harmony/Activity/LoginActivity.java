@@ -65,67 +65,38 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        if(userManage.getUserInfo(mContext)!= null) //Obtain User Info ,Slient Sign in
+        if(DatabaseUtil.isNetworkConnected(mContext) )
         {
-            //将头像存储到本地
-            //只验证账号密码
-            //成功则取本地头像
-            User tempuser = userManage.getUserInfo(mContext);
-            tempuser.setAvatar(null);
-            Result result=DatabaseUtil.login(tempuser,
-                    HttpAddress.get(HttpAddress.user(),"loginwithoutavatar"));
-            if( result.getCode()!=200 )
+
+            if(userManage.getUserInfo(mContext)!= null) //获取自动登录的用户
             {
-                Toast.makeText(mContext,"自动登录:"+result.getMsg(),Toast.LENGTH_SHORT).show();
+                //将头像存储到本地
+                //只验证账号密码
+                //成功则取本地头像
+                User tempuser = userManage.getUserInfo(mContext);
+                tempuser.setAvatar(null);
+                Result result=DatabaseUtil.login(tempuser, HttpAddress.get(HttpAddress.user(),"loginwithoutavatar"));
+                if( result.getCode()!=200 )
+                {
+                    Toast.makeText(mContext,"自动登录:"+result.getMsg(),Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // MainActivity.curuser = user;
+                    System.out.println(result.toString());
 
-                Intent it = new Intent(mContext,LoginActivity.class);
-                startActivity(it);
-                finish();
+                    userManage.Plunge(LoginActivity.this, MainActivity.class,userManage.getUserInfo(mContext), ConstantValue.Userbean);
+
+                }
             }
-            else{
-                // MainActivity.curuser = user;
-                System.out.println(result.toString()); //or user.toString
-//                    Intent it = new Intent(LoginActivity.this,MainActivity.class);
-//                    it.putExtra("user",user);
-//                    startActivity(it);
-//                    finish();
-                userManage.Plunge(LoginActivity.this, MainActivity.class,userManage.getUserInfo(mContext), ConstantValue.Userbean);
-
-
-
-            }
-
-//            Intent it = new Intent(LoginActivity.this,MainActivity.class);
-//            it.putExtra("user",userManage.getUserInfo(mContext));
-//            startActivity(it);
-//            finish();
-        }else{
+        } //没网络连接 默认加载登录界面 无法自动登录
                //Got No User Info,Init LoginActivity
             initUI();
             //make sure to get the RegisterUserInfo
             User user = userManage.getPlunge(this,RegisterUser);
-//        Intent it = this.getIntent();
-//        User user =(User)it.getSerializableExtra(RegisterUser);
-//        System.out.println(user);
             if(user!=null){
                 username.setText(user.getUsername().toString());
                 userpwd.setText(user.getPassword().toString());
             }
-        }
-
-        //　(1)当用户按下HOME键时。
-        // (2)、长按HOME键，选择运行其他的程序时。
-        // (3)、按下电源按键（关闭屏幕显示）时。
-        // (4)、从activity A中启动一个新的activity时。
-        //(5)、屏幕方向切换时，例如从竖屏切换到横屏时。
-//        if (savedInstanceState != null) {
-//            if(savedInstanceState.getSerializable(SavedUser)!=null) ;
-//            userManage.Plunge(LoginActivity.this,MainActivity.class,(User)savedInstanceState.getSerializable(SavedUser));
-////            Intent it = new Intent(LoginActivity.this,MainActivity.class);
-////            startActivity(it);
-////            finish();
-//        }
 
 
     }

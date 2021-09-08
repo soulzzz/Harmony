@@ -29,7 +29,7 @@
         android:id="@+id/rc1"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:background="@color/halfwhite"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/topdiv"
@@ -37,7 +37,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/priceline"
@@ -90,6 +90,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/zz1"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -132,11 +133,50 @@
             android:text="福建省"/>
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/reason"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/zz1">
+       <TextView
+           android:id="@+id/r1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="退单申请理由:"/>
+        <TextView
+            android:id="@+id/r2"
+            android:layout_toRightOf="@+id/r1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退单拒绝理由:"/>
+        <TextView
+            android:id="@+id/r3"
+            android:layout_toRightOf="@+id/r2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="理由"/>
+
+
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         >
+        <TextView
+            android:layout_toLeftOf="@id/state"
+            android:id="@+id/request"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="取消订单"
+            android:singleLine="true"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:background="@drawable/round_border"/>
         <TextView
             android:layout_marginBottom="10dp"
             android:id="@+id/state"

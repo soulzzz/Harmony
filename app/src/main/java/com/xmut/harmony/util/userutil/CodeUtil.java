@@ -13,6 +13,8 @@ public class CodeUtil {
     private static Integer number=0;//唯一数字,集群第一台=0，第二台=200000,第三台=400000
     private static int maxNum=200000;//最大值,集群第一台=200000，第二台=400000,第三台=600000
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");//年月日格式
+    private static Integer number2=0;//唯一数字,集群第一台=0，第二台=200000,第三台=400000
+    private static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");//年月日格式
 
     /**
      * uuid生成没有 — 的编号
@@ -35,6 +37,14 @@ public class CodeUtil {
             number=maxNum-200000;
         }
         return sdf.format(new Date())+number;//返回时间+一毫秒内唯一数字的编号，区分机器可以加字母ABC...
+    }
+
+    public static String createProductId(){
+        number2++;//唯一数字自增
+        if(number2>=maxNum){ // 值的上限，超过就归零
+            number2=maxNum-200000;
+        }
+        return sdf2.format(new Date())+number2;//返回时间+一毫秒内唯一数字的编号，区分机器可以加字母ABC...
     }
 
 }

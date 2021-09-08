@@ -46,7 +46,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.CheckOrderDetailActivity"></activity>
+        <activity android:name=".Activity.CommentActivity"></activity>
+        <activity android:name=".Activity.GoodDetailActivity" />
+        <activity android:name=".Activity.CheckOrderDetailActivity" />
         <activity android:name=".Activity.CheckOrderActivity" />
         <activity android:name=".Activity.OrderChangeAddressActivity" />
         <activity android:name=".Activity.OrderAddressActivity" />

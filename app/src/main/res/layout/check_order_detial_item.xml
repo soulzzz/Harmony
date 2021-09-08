@@ -120,22 +120,22 @@
         <!--&lt;!&ndash;                android:textSize="8sp" />&ndash;&gt;-->
         <!--        </RelativeLayout>-->
     </RelativeLayout>
-    <RelativeLayout
-        android:background="@drawable/item_background"
-        android:id="@+id/paynum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ordersection"
-        android:layout_alignParentEnd="true">
+<!--    <RelativeLayout-->
+<!--        android:background="@drawable/item_background"-->
+<!--        android:id="@+id/paynum"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/ordersection"-->
+<!--        android:layout_alignParentEnd="true">-->
 
-        <TextView
-            android:id="@+id/rmbicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_toLeftOf="@+id/orderprice"
-            android:text="¥"/>
-    </RelativeLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/rmbicon"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:layout_toLeftOf="@+id/orderprice"-->
+<!--            android:text="¥"/>-->
+<!--    </RelativeLayout>-->
     <RelativeLayout
         android:background="@drawable/item_background"
         android:layout_width="match_parent"

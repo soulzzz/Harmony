@@ -1,5 +1,6 @@
 package com.xmut.harmony.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,29 +31,45 @@ import java.util.Collections;
 import java.util.List;
 
 public class CheckOrderActivity extends AppCompatActivity {
-    TextView nullshow,allclick,waitpay,waitsend,waitreceive,success;
+    TextView nullshow, allclick, waitpay, waitsend, waitreceive, success;
     ImageView leaveordercheck;
     RecyclerView recyclerview;
-    List<Order> orderList;
+    List<Order> orderList = new ArrayList<>();
     List<Order> orderShowList;
     Context context;
-    User user ;
+    User user;
     int lastclick = -1;
-    OrderAdapter orderAdapter ;
+    OrderAdapter orderAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_order);
         context = this;
         user = UserManage.getInstance().getUserInfo(context);
-        getOrderList();
+//        getOrderList();
         init();
-
-
-//        allclick.performClick();
-//        if()
-
-
+        Intent it = getIntent();
+        int clickwhich = it.getIntExtra("section", -1);
+        switch (clickwhich) {
+            case 0:
+                allclick.performClick();
+                break;
+            case 1:
+                waitpay.performClick();
+                break;
+            case 2:
+                waitsend.performClick();
+                break;
+            case 3:
+                waitreceive.performClick();
+                break;
+            case 4:
+                success.performClick();
+                break;
+            default:
+                break;
+        }
 
     }
 
@@ -60,39 +77,14 @@ public class CheckOrderActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(orderList==null ||orderList.isEmpty()){
-            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-            nullshow.setVisibility(View.VISIBLE);
-            
-        }else{
-            Intent it = getIntent();
-            int clickwhich = it.getIntExtra("section",0);
-            switch (clickwhich){
-                case 0:
-                    allclick.performClick();
-                    break;
-                case 1:
-                    waitpay.performClick();
-                    break;
-                case 2:
-                    waitsend.performClick();
-                    break;
-                case 3:
-                    waitreceive.performClick();
-                            break;
-                case 4:success.performClick();
-                break;
-                default:allclick.performClick();
-                break;
-            }
-        }
+
     }
 
     private void init() {
         orderShowList = new ArrayList<>();
         recyclerview = findViewById(R.id.recyclerview);
 
-        leaveordercheck =findViewById(R.id.leaveordercheck);
+        leaveordercheck = findViewById(R.id.leaveordercheck);
         leaveordercheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,12 +98,20 @@ public class CheckOrderActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
+                getOrderList(-1);
                 orderAdapter.setOrderList(orderList);
-                if(lastclick !=0){
+                orderAdapter.setPage(1);
+                if (lastclick != 0) {
                     ResetOthers(lastclick);
                 }
-                lastclick =0;
+                lastclick = 0;
                 allclick.setTextColor(getColor(R.color.orange));
+
+                if (orderList == null || orderList.isEmpty()) {
+                    nullshow.setVisibility(View.VISIBLE);
+                } else {
+                    nullshow.setVisibility(View.INVISIBLE);
+                }
 
             }
         });
@@ -120,24 +120,19 @@ public class CheckOrderActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if(orderShowList.size()>0)
-                {
-                    orderShowList.clear();
-                }
-                for(Order order :orderList)
-                {
-                    if(order.getOrder_state().equals("待付款"))
-                    {
-                        orderShowList.add(order);
-                    }
-                }
-                orderAdapter.setOrderList(orderShowList);
-                if(lastclick !=1){
+                getOrderList(1);
+                orderAdapter.setOrderList(orderList);
+                orderAdapter.setPage(2);
+                if (lastclick != 1) {
                     ResetOthers(lastclick);
                 }
-                lastclick =1;
+                lastclick = 1;
                 waitpay.setTextColor(getColor(R.color.orange));
-
+                if (orderList == null || orderList.isEmpty()) {
+                    nullshow.setVisibility(View.VISIBLE);
+                } else {
+                    nullshow.setVisibility(View.INVISIBLE);
+                }
             }
         });
         waitsend = findViewById(R.id.waitsend);
@@ -145,23 +140,19 @@ public class CheckOrderActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if(orderShowList.size()>0)
-                {
-                    orderShowList.clear();
-                }
-                for(Order order :orderList)
-                {
-                    if(order.getOrder_state().equals("待发货"))
-                    {
-                        orderShowList.add(order);
-                    }
-                }
-                orderAdapter.setOrderList(orderShowList);
-                if(lastclick !=2){
+                getOrderList(2);
+                orderAdapter.setOrderList(orderList);
+                orderAdapter.setPage(3);
+                if (lastclick != 2) {
                     ResetOthers(lastclick);
                 }
-                lastclick =2;
+                lastclick = 2;
                 waitsend.setTextColor(getColor(R.color.orange));
+                if (orderList == null || orderList.isEmpty()) {
+                    nullshow.setVisibility(View.VISIBLE);
+                } else {
+                    nullshow.setVisibility(View.INVISIBLE);
+                }
             }
         });
         waitreceive = findViewById(R.id.waitreceive);
@@ -169,23 +160,19 @@ public class CheckOrderActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if(orderShowList.size()>0)
-                {
-                    orderShowList.clear();
-                }
-                for(Order order :orderList)
-                {
-                    if(order.getOrder_state().equals("待收货"))
-                    {
-                        orderShowList.add(order);
-                    }
-                }
-                orderAdapter.setOrderList(orderShowList);
-                if(lastclick !=3){
+                getOrderList(3);
+                orderAdapter.setOrderList(orderList);
+                orderAdapter.setPage(4);
+                if (lastclick != 3) {
                     ResetOthers(lastclick);
                 }
-                lastclick =3;
+                lastclick = 3;
                 waitreceive.setTextColor(getColor(R.color.orange));
+                if (orderList == null || orderList.isEmpty()) {
+                    nullshow.setVisibility(View.VISIBLE);
+                } else {
+                    nullshow.setVisibility(View.INVISIBLE);
+                }
             }
         });
         success = findViewById(R.id.success);
@@ -193,34 +180,30 @@ public class CheckOrderActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if(orderShowList.size()>0)
-                {
-                    orderShowList.clear();
-                }
-                for(Order order :orderList)
-                {
-                    if(order.getOrder_state().equals("已完成"))
-                    {
-                        orderShowList.add(order);
-                    }
-                }
-                orderAdapter.setOrderList(orderShowList);
-                if(lastclick !=4){
+                getOrderList(4);
+                orderAdapter.setOrderList(orderList);
+                orderAdapter.setPage(5);
+                if (lastclick != 4) {
                     ResetOthers(lastclick);
                 }
-                lastclick =4;
+                lastclick = 4;
                 success.setTextColor(getColor(R.color.orange));
+                if (orderList == null || orderList.isEmpty()) {
+                    nullshow.setVisibility(View.VISIBLE);
+                } else {
+                    nullshow.setVisibility(View.INVISIBLE);
+                }
             }
         });
         //
-        orderAdapter =new OrderAdapter(context);
+        orderAdapter = new OrderAdapter(context);
         recyclerview.setAdapter(orderAdapter);
-        recyclerview.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
+        recyclerview.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void ResetOthers(int lastclick) {
-        switch (lastclick){
+        switch (lastclick) {
             case 0:
                 allclick.setTextColor(getColor(R.color.text_topbar));
                 break;
@@ -233,26 +216,78 @@ public class CheckOrderActivity extends AppCompatActivity {
             case 3:
                 waitreceive.setTextColor(getColor(R.color.text_topbar));
                 break;
-            case 4:success.setTextColor(getColor(R.color.text_topbar));
+            case 4:
+                success.setTextColor(getColor(R.color.text_topbar));
                 break;
         }
     }
 
     private void getOrderList() {
 
-        Result result = DatabaseUtil.selectList(HttpAddress.get(HttpAddress.order(),"list",user.getId()));
-        if(result.getCode()!=200){
+        Result result = DatabaseUtil.selectList(HttpAddress.get(HttpAddress.order(), "list", user.getId()));
+        if (result.getCode() != 200) {
             Toast.makeText(context, "获取订单失败", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             orderList = new ArrayList<>();
-            orderList = DatabaseUtil.getObjectList(result,Order.class);
+            orderList = DatabaseUtil.getObjectList(result, Order.class);
             Collections.sort(orderList);
-            System.out.println("获取订单数"+orderList.size());
-            for(Order order:orderList)
-            {
+            System.out.println("获取订单数" + orderList.size());
+            for (Order order : orderList) {
                 System.out.println(order);
             }
             Toast.makeText(context, "获取订单成功", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private void getOrderList(int state) {
+
+        Result result = DatabaseUtil.selectList(HttpAddress.get(HttpAddress.order(), "list", user.getId()));
+        if (result.getCode() != 200) {
+            Toast.makeText(context, "获取订单失败", Toast.LENGTH_SHORT).show();
+        } else {
+            if (orderList.size() > 0) {
+                orderList.clear();
+            }
+            List<Order> temp = DatabaseUtil.getObjectList(result, Order.class);
+            Collections.sort(orderList);
+            if (state != -1) {
+                for (Order order : temp) {
+                    if (order.getOrder_state() == state) {
+                        orderList.add(order);
+                    }
+                }
+            } else {
+                orderList = temp;
+            }
+            orderAdapter.notifyDataSetChanged();
+
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent it) {
+        super.onActivityResult(requestCode, resultCode, it);
+        if (requestCode == 3 && resultCode == RESULT_OK) {
+            int page =  it.getIntExtra("page",1);
+            switch (page) {
+                case 1:
+                    allclick.performClick();
+                    break;
+                case 2:
+                    waitpay.performClick();
+                    break;
+                case 3:
+                    waitsend.performClick();
+                    break;
+                case 4:
+                    waitreceive.performClick();
+                    break;
+                case 5:
+                    success.performClick();
+                    break;
+                default:
+                    break;
+            }
 
         }
     }

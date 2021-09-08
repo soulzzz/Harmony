@@ -1,6 +1,7 @@
 package com.xmut.harmony.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,9 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.xmut.harmony.Activity.GoodDetailActivity;
 import com.xmut.harmony.R;
 import com.xmut.harmony.Video.utils.StringUtil;
 import com.xmut.harmony.entity.Product;
+import com.xmut.harmony.entity.Result;
+import com.xmut.harmony.util.httputil.DatabaseUtil;
+import com.xmut.harmony.util.httputil.http.HttpAddress;
 
 import org.w3c.dom.Text;
 
@@ -51,7 +56,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         }
 
         holder.product_name.setText(productList.get(position).getProduct_name());
+        holder.product_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(context, GoodDetailActivity.class);
+                Result result = DatabaseUtil.selectLineById(HttpAddress.get(HttpAddress.product(),"line",productList.get(position).getProduct_id()));
+                if(result.getCode()==200){
+                    Product product = DatabaseUtil.getEntity(result,Product.class);
+                    System.out.println(product);
+                    it.putExtra("goods",product);
+                    context.startActivity(it);
+                }
+            }
+        });
         Glide.with(context).load(productList.get(position).getProduct_img()).placeholder(R.drawable.ic_error).into(holder.product_img);
+        holder.product_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(context, GoodDetailActivity.class);
+                Result result = DatabaseUtil.selectLineById(HttpAddress.get(HttpAddress.product(),"line",productList.get(position).getProduct_id()));
+                if(result.getCode()==200){
+                    Product product = DatabaseUtil.getEntity(result,Product.class);
+                    System.out.println(product);
+                    it.putExtra("goods",product);
+                    context.startActivity(it);
+                }
+            }
+        });
         holder.product_price.setText(String.valueOf(productList.get(position).getProduct_price()));
         holder.product_des.setText(productList.get(position).getProduct_des());
         if(holder.num !=0){

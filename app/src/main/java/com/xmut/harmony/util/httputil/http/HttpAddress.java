@@ -8,6 +8,7 @@ public class HttpAddress {
     final private static String videoAddress="video";
     final private static String storeAddress = "store";
     final private static String orderAddress = "order";
+    final private static String productAddress="product";
     public static String user(){
         return userAddress;
     }
@@ -16,6 +17,8 @@ public class HttpAddress {
     }
     public static String store(){return storeAddress;}
     public static String order(){return orderAddress;}
+    public static String product(){return productAddress;}
+
     /**
      *
      * @param address 首地址 例如：“user”
@@ -38,6 +41,9 @@ public class HttpAddress {
                 break;
             case "updateuseraddress":args = getUpdateUserAddress(address);
                 break;
+            case "insertcomment":args=getInsertComment(address);
+                break;
+
         }
         return args;
     }
@@ -65,12 +71,18 @@ public class HttpAddress {
             break;
             case "list":args = getUserOrder(address,id);
             break;
+            case "lists":args=getListsAddress(address,id);
+                break;
         }
         return args;
     }
 
     private static String[] getUserOrder(String address, Serializable id) {
         args =new String[]{address,"list",String.valueOf(id)};
+        return args;
+    }
+    private static String[] getListsAddress(String address, Serializable id) {
+        args =new String[]{address,"lists",String.valueOf(id)};
         return args;
     }
 
@@ -85,6 +97,10 @@ public class HttpAddress {
     }
     private static String[] getInsertAddress(String address){
         args=new String[]{address,"insert"};
+        return args;
+    }
+    private static String[] getInsertComment(String address){
+        args=new String[]{address,"insertcomment"};
         return args;
     }
     private static String[] getInsertUserAddress(String address){
@@ -107,6 +123,10 @@ public class HttpAddress {
         args=new String[]{address,"list"};
         return args;
     }
+    private static String[] getListsAddress(String address){
+        args=new String[]{address,"lists"};
+        return args;
+    }
     private static String[] getOpenid(String address,Serializable openid) {
         args=new String[]{address,"openid",openid.toString()};
         return args;
@@ -124,4 +144,5 @@ public class HttpAddress {
         args=new String[]{address,"listUserAddress", String.valueOf(id)};
         return args;
     }
-}
+
+    }

@@ -154,6 +154,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/paynum">
         <TextView
+            android:id="@+id/detail"
+            android:layout_toLeftOf="@+id/state"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="查看详情"
+            android:gravity="center"
+            android:textColor="@color/orange"
+            android:background="@drawable/icon_line"/>
+        <TextView
             android:id="@+id/state"
             android:layout_alignParentEnd="true"
             android:layout_width="65dp"

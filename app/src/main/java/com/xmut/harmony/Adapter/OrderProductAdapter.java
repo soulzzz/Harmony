@@ -13,12 +13,14 @@ import com.bumptech.glide.Glide;
 import com.xmut.harmony.R;
 import com.xmut.harmony.entity.Product;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapter.holder> {
     Context context;
     List<Product> productList;
+    DecimalFormat df = new DecimalFormat("0.00");
     public OrderProductAdapter(Context context) {
         this.context = context;
         productList =new ArrayList<>();
@@ -39,10 +41,10 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
 
     @Override
     public void onBindViewHolder(@NonNull holder holder, int position) {
-        holder.product_num.setText(String.valueOf(productList.get(position).getProduct_stock()));
+        holder.product_num.setText(String.valueOf(productList.get(position).getProduct_num()));
         Glide.with(context).load(productList.get(position).getProduct_img()).placeholder(R.drawable.ic_error).into(holder.product_img);
         holder.product_name.setText(productList.get(position).getProduct_name());
-        holder.product_price.setText(String.valueOf(productList.get(position).getProduct_price()*productList.get(position).getProduct_stock()) );
+        holder.product_price.setText(String.valueOf(Double.parseDouble(df.format( (productList.get(position).getProduct_price() )))));
     }
 
     @Override

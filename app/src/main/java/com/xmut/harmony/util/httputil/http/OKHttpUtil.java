@@ -11,8 +11,10 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -27,6 +29,7 @@ public class OKHttpUtil {
     private static int TimeOut = 5;
     //单例获取ohttp3对象
     private static OkHttpClient client = null;
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     /**
      * OkHttpClient的构造方法，通过线程锁的方式构造
      * @return OkHttpClient对象
@@ -211,11 +214,14 @@ public class OKHttpUtil {
             public void run() {
                 client=getInstance();
                 Log.d("同步post请求地址：",finalAddress);
-                FormBody.Builder formBody = new FormBody.Builder();
-                formBody.add("json",json);
+                RequestBody body = RequestBody.create(JSON, json);
+
+//                FormBody.Builder formBody = new FormBody.Builder();
+//                formBody.add("json",json);
+//                formBody.build()
                 request=new Request.Builder()
                         .url(finalAddress)
-                        .post(formBody.build())
+                        .post(body)
                         .addHeader("device-platform", "android")
                         .build();
                 try{
@@ -249,6 +255,7 @@ public class OKHttpUtil {
      * @param args 请求的参数    args[]=new String[]{"user","getUser","123"}
      * @return
      */
+
     public static String postAsyncRequest(String url,String json,String... args){
         List<String> result=new ArrayList<>();
         String address=url;
@@ -258,11 +265,12 @@ public class OKHttpUtil {
         final String finalAddress = address;
         Log.d("异步post请求地址：",finalAddress);
         client=getInstance();
-        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add("json",json);
+        RequestBody body = RequestBody.create(JSON, json);
+//        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+//        formBody.add("json",json);
         request = new Request.Builder()
                 .url(finalAddress)
-                .post(formBody.build())
+                .post(body)
                 .addHeader("device-platform", "android")
                 .build();
         Call call=client.newCall(request);
@@ -285,6 +293,7 @@ public class OKHttpUtil {
                         String res = null;
                         try {
                             res = response.body().string();
+                            System.out.println("ZZZ"+res);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -323,11 +332,12 @@ public class OKHttpUtil {
         final String finalAddress = address;
         Log.d("异步delete请求地址：",finalAddress);
         client=getInstance();
-        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add("json",json);
+        RequestBody body = RequestBody.create(JSON, json);
+//        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+//        formBody.add("json",json);
         request = new Request.Builder()
                 .url(finalAddress)
-                .delete(formBody.build())
+                .delete(body)
                 .addHeader("device-platform", "android")
                 .build();
         Call call=client.newCall(request);
@@ -388,11 +398,12 @@ public class OKHttpUtil {
         final String finalAddress = address;
         Log.d("异步put请求地址：",finalAddress);
         client=getInstance();
-        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add("json",json);
+        RequestBody body = RequestBody.create(JSON, json);
+//        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+//        formBody.add("json",json);
         request = new Request.Builder()
                 .url(finalAddress)
-                .put(formBody.build())
+                .put(body)
                 .addHeader("device-platform", "android")
                 .build();
         Call call=client.newCall(request);
